@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container bg-danger ">
+        <form action="" class="formCreateUser">
+            <input type="text" name="name" class="name form-control" placeholder="Enter your name ">
+            <input type="text" name="number" class="phone form-control" placeholder="Enter your phone number">
+            <button onclick="FormSubmite()" type="button" class=" btn btn-primary mt-2">Save</button>
+        </form>
+        <div class="w-50 mx-auto p-5 border">
+            <h1>UserList </h1>
+            <hr>
+            <div class="show">
+
+            </div>
+           
+
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+   
+</script>
+<script>
+     const FormSubmite = () =>{
+        let name = $(".name").val();
+        let phone= $(".phone").val();
+        $.ajax({
+            method : 'POST',
+            url    : 'relation.php',
+            data   :{
+                name : name,
+                phone : phone
+            },
+            success : (respone) => {
+                if (respone.status==200){
+                    $('.show').append(`
+                        <ul class=" showUser"> 
+                            <li>${respone.data.name}</li>
+                            <li>${respone.data.phone}</li>
+                        </ul>
+                    `)
+                }
+                
+            }
+        });
+        
+        
+    }
+</script>
+</html>
